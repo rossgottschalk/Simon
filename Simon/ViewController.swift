@@ -10,15 +10,34 @@ import UIKit
 
 class ViewController: UIViewController
 {
-    var grid = [[0,0], [0,0]]
+    //var grid = [[0,0], [0,0]]
+    var redSquare: UIButton!
+    var blueSquare: UIButton!
+    var greenSquare: UIButton!
+    var yellowSquare: UIButton!
     
-    
-    
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
         
+        let redSquare = UIButton(frame: CGRect(x: 60, y: 100, width: 100, height: 100))
+        let blueSquare = UIButton(frame: CGRect(x: 165, y: 100, width: 100, height: 100))
+        let greenSquare = UIButton(frame: CGRect(x: 60, y: 205, width: 100, height: 100))
+        let yellowSquare = UIButton(frame: CGRect(x: 165, y: 205, width: 100, height: 100))
+        
+        
+        redSquare.backgroundColor = UIColor.red
+        blueSquare.backgroundColor = UIColor.blue
+        greenSquare.backgroundColor = UIColor.green
+        yellowSquare.backgroundColor = UIColor.yellow
+        
+        view.addSubview(redSquare)
+        view.addSubview(blueSquare)
+        view.addSubview(greenSquare)
+        view.addSubview(yellowSquare)
+  /*
         let screenHeight = Int(view.bounds.height)
         let screenWidth = Int(view.bounds.width)
         
@@ -46,6 +65,8 @@ class ViewController: UIViewController
                 view.addSubview(button)
             }
         }
+ */
+        
     }
 
     override func didReceiveMemoryWarning()
