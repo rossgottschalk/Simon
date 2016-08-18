@@ -8,18 +8,55 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
+class ViewController: UIViewController
+{
+    var grid = [[0,0], [0,0]]
+    
+    
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        view.backgroundColor = UIColor.black
+        
+        let screenHeight = Int(view.bounds.height)
+        let screenWidth = Int(view.bounds.width)
+        
+        let buttonHW = 100
+        let buttonSpacing = 6
+        
+        let gridHW = (buttonHW * 2) + (buttonSpacing * 2)
+        
+        let leftSpacing = (screenWidth - gridHW) / 2
+        let topSpacing = (screenHeight - gridHW) / 2
+        
+        for (r, row) in grid.enumerated()
+        {
+            for (c, _) in row.enumerated()
+            {
+                let x = c * (buttonHW + buttonSpacing) + leftSpacing
+                let y = r * (buttonHW + buttonSpacing) + topSpacing
+                
+                let button = simonButton(frame: CGRect(x: x, y: y, width: buttonHW, height: buttonHW))
+                button.backgroundColor = UIColor.red
+                button.row = r
+                button.col = c
+                
+                //button.addTarget(self, action: #selector(ViewController.spacePressed(_:)), for: .touchUpInside)
+                view.addSubview(button)
+            }
+        }
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+}
+class simonButton: UIButton
+{
+    var row = 0
+    var col = 0
 
 }
 
