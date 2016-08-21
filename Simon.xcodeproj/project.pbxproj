@@ -297,6 +297,7 @@
 				5B21EF1C1D66348100C3F374 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

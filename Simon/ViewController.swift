@@ -8,76 +8,154 @@
 
 import UIKit
 
+
 class ViewController: UIViewController
 {
-    //var grid = [[0,0], [0,0]]
-    var redSquare: UIButton!
-    var blueSquare: UIButton!
-    var greenSquare: UIButton!
-    var yellowSquare: UIButton!
+    enum ColorAsInt: Int
+    {
+        case red = 1
+        case blue
+        case green
+        case yellow
+    }
     
-
+    var simonSequence = [String]()
+    var playerSequence = [String]()
+    
+    
+    
+    
+    @IBOutlet weak var startButton: UIButton!
+    
+    @IBOutlet weak var redButton: UIButton!
+    @IBOutlet weak var blueButton: UIButton!
+    @IBOutlet weak var greenButton: UIButton!
+    @IBOutlet weak var yellowButton: UIButton!
+    
+    
+    
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.black
-        
-        let redSquare = UIButton(frame: CGRect(x: 60, y: 100, width: 100, height: 100))
-        let blueSquare = UIButton(frame: CGRect(x: 165, y: 100, width: 100, height: 100))
-        let greenSquare = UIButton(frame: CGRect(x: 60, y: 205, width: 100, height: 100))
-        let yellowSquare = UIButton(frame: CGRect(x: 165, y: 205, width: 100, height: 100))
-        
-        
-        redSquare.backgroundColor = UIColor.red
-        blueSquare.backgroundColor = UIColor.blue
-        greenSquare.backgroundColor = UIColor.green
-        yellowSquare.backgroundColor = UIColor.yellow
-        
-        view.addSubview(redSquare)
-        view.addSubview(blueSquare)
-        view.addSubview(greenSquare)
-        view.addSubview(yellowSquare)
-  /*
-        let screenHeight = Int(view.bounds.height)
-        let screenWidth = Int(view.bounds.width)
-        
-        let buttonHW = 100
-        let buttonSpacing = 6
-        
-        let gridHW = (buttonHW * 2) + (buttonSpacing * 2)
-        
-        let leftSpacing = (screenWidth - gridHW) / 2
-        let topSpacing = (screenHeight - gridHW) / 2
-        
-        for (r, row) in grid.enumerated()
-        {
-            for (c, _) in row.enumerated()
-            {
-                let x = c * (buttonHW + buttonSpacing) + leftSpacing
-                let y = r * (buttonHW + buttonSpacing) + topSpacing
-                
-                let button = simonButton(frame: CGRect(x: x, y: y, width: buttonHW, height: buttonHW))
-                button.backgroundColor = UIColor.red
-                button.row = r
-                button.col = c
-                
-                //button.addTarget(self, action: #selector(ViewController.spacePressed(_:)), for: .touchUpInside)
-                view.addSubview(button)
-            }
-        }
- */
-        
     }
-
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
     }
-}
-class simonButton: UIButton
-{
-    var row = 0
-    var col = 0
+    
+    func simonsTurn()
+    {
+        let randomChoice = arc4random_uniform(4) + 1
+        var simonChose: ColorAsInt
+        switch randomChoice {
+        case 1:
+            simonChose = .red
+            simonSequence.append("\(simonChose)")
+            buttonAnimation(redButton)
+        case 2:
+            simonChose = .blue
+            simonSequence.append("\(simonChose)")
+            buttonAnimation(blueButton)
+        case 3:
+            simonChose = .green
+            simonSequence.append("\(simonChose)")
+            buttonAnimation(greenButton)
+        case 4:
+            simonChose = .yellow
+            simonSequence.append("\(simonChose)")
+            buttonAnimation(yellowButton)
+        default:
+            print("no choice")
+        }
+        print(simonSequence)
+    }
+    
+    
+    func didPlayerLose ()
+    {
+        if playerSequence == simonSequence
+        {
+            simonsTurn()
+        }
+        
+        //simonArray == playerArray
+        //lose?
+        //if no, simon goes()
 
-}
+    }
 
+    
+    func playerGoes()
+    {
+        //playerArray [0]
+        //do playerArray.apped
+        //while playerArray.count < simonArray.count
+        //didPlayerLose()
+    }
+
+    
+    
+    
+    
+// MARK: Button Actions
+    @IBAction func startTapped(_ sender: UIButton)
+    {
+        simonsTurn()
+    }
+
+    @IBAction func redTapped(_ sender: UIButton)
+    {
+        buttonAnimation(sender)
+        playerSequence.append("red")
+        print(playerSequence)
+        if playerSequence.count == simonSequence.count
+        {
+            didPlayerLose()
+        }
+    }
+    @IBAction func blueTapped(_ sender: UIButton)
+    {
+        buttonAnimation(sender)
+        playerSequence.append("blue")
+        print(playerSequence)
+        if playerSequence.count == simonSequence.count
+        {
+            didPlayerLose()
+        }
+    }
+    @IBAction func greenTapped(_ sender: UIButton)
+    {
+        buttonAnimation(sender)
+        playerSequence.append("green")
+        print(playerSequence)
+        if playerSequence.count == simonSequence.count
+        {
+            didPlayerLose()
+        }
+    }
+    @IBAction func yellowTapped(_ sender: UIButton)
+    {
+        buttonAnimation(sender)
+        playerSequence.append("yellow")
+        print(playerSequence)
+        if playerSequence.count == simonSequence.count
+        {
+            didPlayerLose()
+        }
+    }
+
+    
+    
+    
+    func buttonAnimation(_ sender: UIButton)
+    {
+        let flashedButton = sender.backgroundColor
+        sender.backgroundColor = UIColor.clear
+        UIView.animate(withDuration: 0.3)
+        {
+            sender.backgroundColor = flashedButton!
+        }
+    }
+}
